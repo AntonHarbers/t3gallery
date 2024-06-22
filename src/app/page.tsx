@@ -1,5 +1,7 @@
 import { db } from "~/server/db";
 
+export const dynamic = 'force-dynamic'
+
 
 const mockUrls = [
   "https://utfs.io/f/217ab541-a2be-4420-9586-15d3d2a461d9-3fo4bj.jpg",
@@ -14,21 +16,18 @@ const mockImages = mockUrls.map((url, index) => ({
 
 export default async function HomePage() {
 
-  const posts = await db.query.posts.findMany()
+  const images = await db.query.images.findMany({
+    orderBy: (model, { desc }) => desc(model.id)
+  })
 
-  console.log(posts)
   return (
     <main className="">
 
       <div className="flex flex-wrap gap-4">
-        {posts.map(post => (
-          <div key={post.id}>
-            {post.name}
-          </div>
-        ))}
-        {[...mockImages, ...mockImages, ...mockImages].map((image, index) => (
+        {images.map((image, index) => (
           <div key={index} className="w-48">
             <img src={image.url} />
+            <h1>{image.name}</h1>
           </div>
         ))}
       </div>
