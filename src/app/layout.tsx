@@ -7,6 +7,7 @@ import TopNav from "./_components/TopNav";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
+import { Toaster } from "~/components/ui/sonner";
 
 
 
@@ -36,13 +37,15 @@ export default function RootLayout({
            */
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
-        <body>
+        <body className=" dark">
           <div className="h-screen grid grid-rows-[auto, 1fr]">
             <TopNav />
             <main className=" overflow-y-scroll">{children}</main>
           </div>
           {modal}
-          <div id='modal-root' /></body>
+          <div id='modal-root' />
+          <Toaster />
+        </body>
       </html>
     </ClerkProvider>
 
