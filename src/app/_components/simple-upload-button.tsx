@@ -56,6 +56,11 @@ export function SimpleUploadButton() {
             })
             router.refresh()
         },
+        onUploadError(e) {
+            posthog.capture('upload error', { e })
+            toast.dismiss('upload-begin')
+            toast.error('Upload Failed!')
+        },
         onUploadBegin() {
             posthog.capture("upload_begin")
             toast(<div className="flex gap-2 text-white items-center"><SpinnerSVG /> <span className="text-lg">Uploading...</span></div>, {
